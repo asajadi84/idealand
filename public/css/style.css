@@ -1,0 +1,160 @@
+@font-face {
+    font-family: Kalameh;
+    font-style: normal;
+    src: url('../fonts/KalamehWeb-Regular.woff2') format('woff2'),
+    url('../fonts/KalamehWeb-Regular.woff') format('woff')
+}
+
+@font-face {
+    font-family: KalamehBold;
+    font-style: normal;
+    src: url('../fonts/KalamehWeb-Bold.woff2') format('woff2'),
+    url('../fonts/KalamehWeb-Bold.woff') format('woff')
+}
+
+body {
+    background-color: #e5f8fd;
+    font-family: Kalameh;
+}
+
+a:link, a:visited {
+    text-decoration: none;
+}
+
+.header-nav {
+    background: linear-gradient(to right, #12c2e9, #c471ed, #f64f59);
+    margin-bottom: 16px;
+    padding: 8px 0;
+}
+
+.nav-logo {
+    width: 32px;
+}
+
+.nav-title {
+    color: #ffffff;
+    font-family: KalamehBold;
+    margin-bottom: 0;
+    padding-right: 8px;
+}
+
+.nav-page-title::before{
+    content: "- ";
+}
+
+.nav-page-title {
+    color: #ffffff;
+    margin-bottom: 0;
+    padding-right: 6px;
+}
+
+.primary-link, .primary-link:hover {
+    background-color: #f64f59;
+    border: 0;
+    border-radius: 6px;
+    color: #ffffff;
+    padding: 8px;
+}
+
+.nav-secondary-link, .nav-secondary-link:hover {
+    color: #ffffff;
+    padding: 8px;
+}
+
+.btn-icon {
+    width: 24px;
+}
+
+.section-box {
+    background-color: #ffffff;
+    border-radius: 6px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07),
+                0 2px 4px rgba(0, 0, 0, 0.07),
+                0 4px 8px rgba(0, 0, 0, 0.07),
+                0 8px 16px rgba(0, 0, 0, 0.07),
+                0 16px 32px rgba(0, 0, 0, 0.07),
+                0 32px 64px rgba(0, 0, 0, 0.07);
+    padding: 8px;
+}
+
+.category-title {
+    background: linear-gradient(to right, #12c2e9, #f64f59);
+    border-radius: 6px;
+    color: #ffffff;
+    font-family: KalamehBold;
+    padding: 6px;
+}
+
+.idea-content {
+    background-color: #eefbfe;
+    border-radius: 6px;
+    color: #000000;
+    display: block;
+    padding: 6px;
+    margin-bottom: 6px;
+}
+
+.idea-content:hover {
+    background-color: #e5f8fd;
+    color: #0b748b;
+}
+
+.important-tag {
+    background: linear-gradient(to right, #c471ed, #f64f59);
+    border-radius: 4px;
+    color: #ffffff;
+    font-size: 0.8rem;
+    margin: 0 4px;
+    padding: 1px 2px;
+}
+
+.add-fab {
+    background-color: #f64f59;
+    border: 0;
+    border-radius: 64px;
+    bottom: 32px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07),
+                0 2px 4px rgba(0, 0, 0, 0.07),
+                0 4px 8px rgba(0, 0, 0, 0.07),
+                0 8px 16px rgba(0, 0, 0, 0.07),
+                0 16px 32px rgba(0, 0, 0, 0.07),
+                0 32px 64px rgba(0, 0, 0, 0.07);
+    color: #ffffff;
+    font-size: 2.5rem;
+    position: fixed;
+    right: 32px;
+    width: 64px;
+    height: 64px;
+}
+
+.main-title {
+    font-family: KalamehBold;
+    background: linear-gradient(to right, #12c2e9, #f64f59);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.inner-container {
+    padding: 64px 15%;
+}
+
+td {
+    padding: 12px 8px !important;
+}
+
+.table-head {
+    background: linear-gradient(to right, #12c2e9, #f64f59);
+    color: #ffffff;
+    font-family: KalamehBold;
+}
+
+footer {
+    background-color: #68d8f1;
+    margin-top: 16px;
+    padding: 16px 0;
+}
+
+.footer-text {
+    margin: 0;
+}

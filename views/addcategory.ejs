@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="utf-8">
+    <title>آیدیالند - افزودن دسته‌بندی</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/sweetalert2@11.js"></script>
+</head>
+
+<body>
+    <nav class="header-nav">
+        <div class="container">
+            <div class="d-flex flex-row justify-content-between">
+                <div class="d-flex flex-row">
+                    <a href="/">
+                        <div class="d-flex flex-row">
+                            <img src="icons/logo.svg" alt="logo" class="nav-logo">
+                            <h3 class="nav-title align-self-center">آیدیالند</h3>
+                        </div>
+                    </a>
+                    <p class="nav-page-title align-self-center">افزودن دسته‌بندی</p>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="section-box">
+            <div class="inner-container">
+                <h3 class="main-title">افزودن دسته‌بندی</h3>
+
+                <form action="/addcategory" method="POST">
+                    <div class="form-group row" style="margin-bottom: 8px;">
+                        <label for="priority" class="col-4 col-form-label">اولویت</label>
+                        <div class="col-8">
+                            <input type="number" class="form-control" min="1" value="1" id="priority" name="priority" required>
+                        </div>
+                    </div>
+                    <div class="form-group row" style="margin-bottom: 8px;">
+                        <label for="title" class="col-4 col-form-label">عنوان</label>
+                        <div class="col-8">
+                            <input type="text" class="form-control" id="title" name="title" required>
+                        </div>
+                    </div>
+                    <button class="primary-link float-start" type="submit" name="submit"><img src="icons/add.svg" alt="icon" class="btn-icon">افزودن</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="d-flex flex-row justify-content-between">
+                <div>
+                    <p class="footer-text">کپی رایت &copy; علی سجادی - 1401</p>
+                </div>
+                <div>
+                    <p class="footer-text"><%= ideaCount %> ایده در <%= categoryCount %> دسته‌بندی</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

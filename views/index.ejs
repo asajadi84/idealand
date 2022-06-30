@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="utf-8">
+    <title>آیدیالند - صفحه اصلی</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/sweetalert2@11.js"></script>
+</head>
+
+<body>
+    <nav class="header-nav">
+        <div class="container">
+            <div class="d-flex flex-row justify-content-between">
+                <div class="d-flex flex-row">
+                    <a href="/">
+                        <div class="d-flex flex-row">
+                            <img src="icons/logo.svg" alt="logo" class="nav-logo">
+                            <h3 class="nav-title align-self-center">آیدیالند</h3>
+                        </div>
+                    </a>
+                    <p class="nav-page-title align-self-center">صفحه اصلی</p>
+                </div>
+
+                <div class="align-self-center">
+                    <a href="/categories" class="nav-secondary-link">دسته‌بندی‌ها</a>
+                    <a href="/exceloutput" class="primary-link">
+                        <img src="icons/list.svg" alt="icon" class="btn-icon">
+                        خروجی اکسل</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="section-box">
+                    <% for(let category in ideasObjCol1){ %>
+                        <h5 class="category-title"><%= category %></h5>
+                        <% for(let j = 0; j < ideasObjCol1[category].length; j++){ %>
+                            <a href="/viewidea?id=<%= ideasObjCol1[category][j].code %>" class="idea-content"><%= ideasObjCol1[category][j].title %>
+                                <% if(ideasObjCol1[category][j].important){ %>
+                                    <span class="important-tag">مهم</span></a>
+                                <% } %>
+                            </a>
+                        <% } %>
+                    <% } %>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="section-box">
+                    <% for(let category in ideasObjCol2){ %>
+                        <h5 class="category-title"><%= category %></h5>
+                        <% for(let j = 0; j < ideasObjCol2[category].length; j++){ %>
+                            <a href="/viewidea?id=<%= ideasObjCol2[category][j].code %>" class="idea-content"><%= ideasObjCol2[category][j].title %>
+                                <% if(ideasObjCol2[category][j].important){ %>
+                                    <span class="important-tag">مهم</span></a>
+                                <% } %>
+                            </a>
+                        <% } %>
+                    <% } %>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="section-box">
+                    <div class="section-box">
+                        <% for(let category in ideasObjCol3){ %>
+                            <h5 class="category-title"><%= category %></h5>
+                            <% for(let j = 0; j < ideasObjCol3[category].length; j++){ %>
+                                <a href="/viewidea?id=<%= ideasObjCol3[category][j].code %>" class="idea-content"><%= ideasObjCol3[category][j].title %>
+                                    <% if(ideasObjCol3[category][j].important){ %>
+                                        <span class="important-tag">مهم</span></a>
+                                    <% } %>
+                                </a>
+                            <% } %>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="d-flex flex-row justify-content-between">
+                <div>
+                    <p class="footer-text">کپی رایت &copy; علی سجادی - 1401</p>
+                </div>
+                <div>
+                    <p class="footer-text"><%= ideaCount %> ایده در <%= categoryCount %> دسته‌بندی</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <button class="add-fab" id="add-fab">
+        +
+    </button>
+
+    <script type="text/javascript">
+
+        $(document).ready(function(){
+            $("#add-fab").click(function(){
+                Swal.fire({
+                    titleText: "افزودن ایده جدید",
+                    html:
+                        '<form action="/addidea" method="POST" style="text-align: right;">' +
+                        '<div class="form-group row" style="margin: 0;">' +
+                        '<label for="category" class="col-4 col-form-label">دسته‌بندی</label>' +
+                        '<div class="col-8">' +
+                        '<select name="category" id="category" class="form-select" required>' +
+                        '<option value="" selected>انتخاب کنید...</option>' +
+                        <% for(let i = 0; i < allCategories.length; i++){ %>
+                            '<option value="<%= allCategories[i].category_code %>"><%= allCategories[i].category_title %></option>' +
+                        <% } %>
+                        '</select>' +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="form-group row" style="margin: 0;">' +
+                        '<label for="content" class="col-4 col-form-label">محتوا</label>' +
+                        '<div class="col-8">' +
+                        '<input type="text" class="form-control" placeholder="به چه می‌اندیشید؟..." id="content" name="content" required>' +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="form-group row" style="margin: 0;">' +
+                        '<label for="important" class="col-4 col-form-label">مهم؟</label>' +
+                        '<div class="col-8">' +
+                        '<input type="checkbox" class="form-check-input" id="important" name="important">' +
+                        '</div>' +
+                        '</div>' +
+                        '<button class="primary-link float-start" type="submit" name="submit"><img src="icons/add.svg" alt="icon" class="btn-icon">افزودن</button>' +
+                        '</form>',
+                    showConfirmButton: false,
+                    customClass: {
+                        title: "main-title"
+                    }
+                });
+            });
+        });
+
+    </script>
+</body>
+
+</html>
