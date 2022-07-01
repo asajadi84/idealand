@@ -78,7 +78,7 @@ a:link, a:visited {
 }
 
 .category-title {
-    background: linear-gradient(to right, #12c2e9, #f64f59);
+    background-color: #12c2e9;
     border-radius: 6px;
     color: #ffffff;
     font-family: KalamehBold;
@@ -86,7 +86,7 @@ a:link, a:visited {
 }
 
 .idea-content {
-    background-color: #eefbfe;
+    background-color: #f9f9f9;
     border-radius: 6px;
     color: #000000;
     display: block;
@@ -95,12 +95,12 @@ a:link, a:visited {
 }
 
 .idea-content:hover {
-    background-color: #e5f8fd;
-    color: #0b748b;
+    background-color: #f4f4f4;
+    color: #000000;
 }
 
 .important-tag {
-    background: linear-gradient(to right, #c471ed, #f64f59);
+    background-color: #f64f59;
     border-radius: 4px;
     color: #ffffff;
     font-size: 0.8rem;

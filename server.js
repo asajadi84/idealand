@@ -88,8 +88,6 @@ app.get("/", function(req, res){
                 }
             });
 
-            console.log(ideasObjCol2);
-
             renderEjs(res, "index", {
                 allCategories: allCategories,
                 ideasObjCol1: ideasObjCol1,
@@ -200,14 +198,170 @@ app.post("/editcategory", function(req, res){
     }
 });
 
+app.get("/viewidea", function(req, res){
+    if(!req.query.id){
+        renderEjs(res, "error", {
+            errorMsg: "وارد کردن آی‌دی ایده الزامی است."
+        });
+    }else{
+        Idea.findOne({idea_id: req.query.id}, function(err, foundIdea){
+            if(!foundIdea){
+                renderEjs(res, "error", {
+                    errorMsg: "ایده‌ای با این آی‌دی یافت نشد."
+                });
+            }else{
+                Category.findOne({category_code: foundIdea.idea_category_code}, function(err2, ideaCategory){
+                    renderEjs(res, "viewidea", {
+                        foundIdea: foundIdea,
+                        ideaCategoryTitle: ideaCategory.category_title,
+                        lastModifiedTime: moment(foundIdea.idea_last_modified_time).format("jYYYY/jM/jD HH:mm:ss")
+                    });
+                });
+            }
+        });
+    }
+});
 
+app.get("/editidea", function(req, res){
+    if(!req.query.id){
+        renderEjs(res, "error", {
+            errorMsg: "وارد کردن آی‌دی ایده الزامی است."
+        });
+    }else{
+        Idea.findOne({idea_id: req.query.id}, function(err, foundIdea){
+            if(!foundIdea){
+                renderEjs(res, "error", {
+                    errorMsg: "ایده‌ای با این آی‌دی یافت نشد."
+                });
+            }else{
+                Category.find(null, null, {
+                    sort: {category_priority: 1}
+                }, function(err, allCategories){
+                    renderEjs(res, "editidea", {
+                        foundIdea: foundIdea,
+                        allCategories: allCategories
+                    });
+                });
+            }
+        });
+    }
+});
 
+app.post("/editidea", function(req, res){
+    if(!req.query.id){
+        renderEjs(res, "error", {
+            errorMsg: "وارد کردن آی‌دی ایده الزامی است."
+        });
+    }else{
+        Idea.findOne({idea_id: req.query.id}, function(err, foundIdea){
+            if(!foundIdea){
+                renderEjs(res, "error", {
+                    errorMsg: "ایده‌ای با این آی‌دی یافت نشد."
+                });
+            }else{
+                Idea.updateOne({idea_id: req.query.id}, {
+                    $set: {
+                        idea_category_code: req.body.category,
+                        idea_content: req.body.content,
+                        idea_is_important: req.body.important ? true : false,
+                        idea_last_modified_time: new Date().getTime()
+                    }
+                }, function(err2){
+                    res.redirect("/");
+                });
+            }
+        });
+    }
+});
 
+app.get("/deleteidea", function(req, res){
+    if(!req.query.id){
+        renderEjs(res, "error", {
+            errorMsg: "وارد کردن آی‌دی ایده الزامی است."
+        });
+    }else{
+        Idea.findOne({idea_id: req.query.id}, function(err, foundIdea){
+            if(!foundIdea){
+                renderEjs(res, "error", {
+                    errorMsg: "ایده‌ای با این آی‌دی یافت نشد."
+                });
+            }else{
+                Idea.deleteOne({idea_id: req.query.id}, function(err2){
+                    res.redirect("/");
+                });
+            }
+        });
+    }
+});
 
+app.get("/exceloutput", function(req, res){
+    Category.find(null, null, {
+        sort: {category_priority: 1}
+    }, function(err, allCategories){
 
+        Idea.find(null, null, {
+            sort: {idea_content: 1}
+        }, function(err2, allIdeas){
 
+            let ideasObj = {};
+            let categoriesKeyValue = {};
+    
+            allCategories.forEach(function(item){
+                ideasObj[item.category_title] = [];
+                categoriesKeyValue[item.category_code] = item.category_title;
+            });
+    
+            let listCounter = 1;
+            allIdeas.forEach(function(item2){
+                ideasObj[categoriesKeyValue[item2.idea_category_code]].push({
+                    no: listCounter,
+                    title: item2.idea_content,
+                    important: item2.idea_is_important ? "بله" : "خیر",
+                    category: categoriesKeyValue[item2.idea_category_code]
+                });
+                listCounter++;
+            });
 
+            let flattenIdeasObj = [];
+            for(let category in ideasObj){
+                for(let j = 0; j < ideasObj[category].length; j++){
+                    flattenIdeasObj.push(ideasObj[category][j]);
+                }
+            }
 
+            let model = [{
+                    displayName: "ردیف",
+                    access: "no",
+                    type: "string"
+                },{
+                    displayName: "ایده",
+                    access: "title",
+                    type: "string"
+                },{
+                    displayName: "مهم؟",
+                    access: "important",
+                    type: "string"
+                },{
+                    displayName: "دسته",
+                    access: "category",
+                    type: "string"
+                }];
+
+            let options = {
+                save: true,
+                sheetName: [],
+                fileName: "idealand-" + moment(new Date().getTime()).format("jYYYY-jM-jD-HH-mm-ss") + ".xlsx",
+                path: __dirname + "/ideabackups",
+                defaultSheetName: "worksheet"
+            };
+
+            mongoXlsx.mongoData2Xlsx(flattenIdeasObj, model, options, function(err3, data){
+                res.download(data.fullPath);
+            });
+        });
+
+    });
+});
 
 app.get("*", function(req, res){
     renderEjs(res, "error", {

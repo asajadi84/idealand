@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="utf-8">
+    <title>آیدیالند - مشاهده ایده</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/sweetalert2@11.js"></script>
+</head>
+
+<body>
+    <nav class="header-nav">
+        <div class="container">
+            <div class="d-flex flex-row justify-content-between">
+                <div class="d-flex flex-row">
+                    <a href="/">
+                        <div class="d-flex flex-row">
+                            <img src="icons/logo.svg" alt="logo" class="nav-logo">
+                            <h3 class="nav-title align-self-center">آیدیالند</h3>
+                        </div>
+                    </a>
+                    <p class="nav-page-title align-self-center">مشاهده ایده</p>
+                </div>
+
+                <div class="align-self-center">
+                    <a href="/deleteidea?id=<%= foundIdea.idea_id %>" class="primary-link">
+                        <img src="icons/delete.svg" alt="icon" class="btn-icon">
+                        حذف ایده</a>
+                    <a href="/editidea?id=<%= foundIdea.idea_id %>" class="primary-link">
+                        <img src="icons/edit.svg" alt="icon" class="btn-icon">
+                        ویرایش ایده</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="section-box">
+            <div class="inner-container">
+                <h3 class="main-title">مشاهده ایده</h3>
+                <div class="table-responsive">
+                    <table class="table">
+                        <tr>
+                            <td class="table-head">ایده</td>
+                            <td><%= foundIdea.idea_content %>
+                                <% if(foundIdea.idea_is_important){ %>
+                                    <span class="important-tag">مهم</span></a>
+                                <% } %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="table-head">دسته‌بندی</td>
+                            <td><%= ideaCategoryTitle %></td>
+                        </tr>
+                        <tr>
+                            <td class="table-head">تاریخ آخرین ویرایش</td>
+                            <td><%= lastModifiedTime %></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="d-flex flex-row justify-content-between">
+                <div>
+                    <p class="footer-text">کپی رایت &copy; علی سجادی - 1401</p>
+                </div>
+                <div>
+                    <p class="footer-text"><%= ideaCount %> ایده در <%= categoryCount %> دسته‌بندی</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

@@ -67,18 +67,16 @@
             </div>
             <div class="col-sm-4">
                 <div class="section-box">
-                    <div class="section-box">
-                        <% for(let category in ideasObjCol3){ %>
-                            <h5 class="category-title"><%= category %></h5>
-                            <% for(let j = 0; j < ideasObjCol3[category].length; j++){ %>
-                                <a href="/viewidea?id=<%= ideasObjCol3[category][j].code %>" class="idea-content"><%= ideasObjCol3[category][j].title %>
-                                    <% if(ideasObjCol3[category][j].important){ %>
-                                        <span class="important-tag">مهم</span></a>
-                                    <% } %>
-                                </a>
-                            <% } %>
+                    <% for(let category in ideasObjCol3){ %>
+                        <h5 class="category-title"><%= category %></h5>
+                        <% for(let j = 0; j < ideasObjCol3[category].length; j++){ %>
+                            <a href="/viewidea?id=<%= ideasObjCol3[category][j].code %>" class="idea-content"><%= ideasObjCol3[category][j].title %>
+                                <% if(ideasObjCol3[category][j].important){ %>
+                                    <span class="important-tag">مهم</span></a>
+                                <% } %>
+                            </a>
                         <% } %>
-                    </div>
+                    <% } %>
                 </div>
             </div>
         </div>
