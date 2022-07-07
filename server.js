@@ -311,15 +311,12 @@ app.get("/exceloutput", function(req, res){
                 categoriesKeyValue[item.category_code] = item.category_title;
             });
     
-            let listCounter = 1;
             allIdeas.forEach(function(item2){
                 ideasObj[categoriesKeyValue[item2.idea_category_code]].push({
-                    no: listCounter,
                     title: item2.idea_content,
                     important: item2.idea_is_important ? "بله" : "خیر",
                     category: categoriesKeyValue[item2.idea_category_code]
                 });
-                listCounter++;
             });
 
             let flattenIdeasObj = [];
@@ -329,6 +326,12 @@ app.get("/exceloutput", function(req, res){
                 }
             }
 
+            let listCounter = 1;
+            flattenIdeasObj.forEach(function(item){
+                item.no = listCounter;
+                listCounter++;
+            });
+            
             let model = [{
                     displayName: "ردیف",
                     access: "no",
