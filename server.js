@@ -305,12 +305,12 @@ app.get("/exceloutput", function(req, res){
 
             let ideasObj = {};
             let categoriesKeyValue = {};
-    
+
             allCategories.forEach(function(item){
                 ideasObj[item.category_title] = [];
                 categoriesKeyValue[item.category_code] = item.category_title;
             });
-    
+
             allIdeas.forEach(function(item2){
                 ideasObj[categoriesKeyValue[item2.idea_category_code]].push({
                     title: item2.idea_content,
@@ -331,7 +331,7 @@ app.get("/exceloutput", function(req, res){
                 item.no = listCounter;
                 listCounter++;
             });
-            
+
             let model = [{
                     displayName: "ردیف",
                     access: "no",
@@ -364,6 +364,10 @@ app.get("/exceloutput", function(req, res){
         });
 
     });
+});
+
+app.get("/lollipop", function(req, res){
+    res.send("this is just a test to see how it is going");
 });
 
 app.get("*", function(req, res){
